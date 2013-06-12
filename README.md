@@ -1,7 +1,7 @@
 I have to give credit to the authors of the gems I combined and modified to make this a reality:
-[jquery-rails-cdn](https://github.com/kenn/jquery-rails-cdn) and [jquery-ui-rails-cdn](https://github.com/styx/jquery-ui-rails-cdn).  This gem will utilize [jquery-rails](https://github.com/rails/jquery-rails) however, it will serve your jquery files from the google cdn, if possible, than fall back to your local copies if neccessary.
+[jquery-rails-cdn](https://github.com/kenn/jquery-rails-cdn) and [jquery-ui-rails-cdn](https://github.com/styx/jquery-ui-rails-cdn).  This gem will utilize [jquery-rails](https://github.com/rails/jquery-rails) however, it will serve your jquery and jquery-ui files from the google cdn, if possible, than fall back to your local copies if neccessary.
 
-Serving jQuery-ui from a publicly available [CDN](http://en.wikipedia.org/wiki/Content_Delivery_Network) has clear benefits:
+Serving jQuery and jQuery-ui from a publicly available [CDN](http://en.wikipedia.org/wiki/Content_Delivery_Network) has clear benefits:
 
 * **Speed**: Users will be able to download jQuery from the closest physical location.
 * **Caching**: CDN is used so widely that potentially your users may not need to download jQuery at all.
@@ -14,7 +14,7 @@ Serving jQuery-ui from a publicly available [CDN](http://en.wikipedia.org/wiki/C
 This gem offers the following features:
 
 * Supports Google CDN
-* jQuery-ui version is set in your application.rb file
+* jQuery and jQuery-ui versions are set in your application.rb file
 * Automatically fallback to local jquery ui min files stored in your vendor directory:
   * You're on a development environment, so that you can work offline.
   * The CDN is down or unreachable.
@@ -32,7 +32,7 @@ On top of that, if you're using asset pipeline, you may have noticed that the ma
 
 If you're using the asset pipeline with Rails 3.1+,
 
-- Start by removing `//= require jquery_ujs` from your `application.js` file.
+- Start by removing `//= require jquery` and `//= require jquery_ujs` from your `application.js` file.
 
 If you're using the asset pipeline with Rails 4+,
 
@@ -42,6 +42,7 @@ If you're using the asset pipeline with Rails 4+,
 
 ```ruby
 gem 'jquery-rails'
+gem 'jquery-rails-google-cdn'
 gem 'jquery-ui-rails'
 gem 'jquery-ui-rails-google-cdn'
 ```
@@ -49,20 +50,28 @@ gem 'jquery-ui-rails-google-cdn'
 - Add these lines to your application.rb file to set the version of jQuery you are using and to make sure the asset pipeline makes it available:
 
 ```ruby
-config.assets.precompile += ["jquery-ui.min.js"]
+config.assets.precompile += ["jquery.min.js","jquery-ui.min.js"]
 config.jquery_ui_version = "1.10.3"
+config.jquery_version = "2.0.2"
 ```
 
 - Finally add this section to your layouts file.
 
 ```html
-<%= javascript_include_tag "application" %>
+<%= jquery_include_tag Rails.application.config.jquery_version %>
 <%= jquery_ui_include_tag Rails.application.config.jquery_ui_version %>
+<%= javascript_include_tag "application" %>
 ```
 
 It will generate the following across all modes production, testing, and development:
 
 ```html
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+<script>
+//<![CDATA[
+window.jQuery || document.write(unescape('%3Cscript src="/assets/jquery.min.js">%3C/script>'))
+//]]>
+</script>
 <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
 <script>
 //<![CDATA[

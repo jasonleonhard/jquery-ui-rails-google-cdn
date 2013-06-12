@@ -26,8 +26,9 @@ module Demoapp
     # config.i18n.default_locale = :de
 
     # Compile local jquery downloads in case the google cdn is not available
-    config.assets.precompile += ["jquery-ui.min.js"]
+    config.assets.precompile += ["jquery.min.js","jquery-ui.min.js"]
     config.jquery_ui_version = "1.10.3"
-    
+    config.jquery_version = "2.0.2"
+  
   end
 end
