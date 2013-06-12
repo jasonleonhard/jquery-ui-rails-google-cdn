@@ -23,6 +23,7 @@ gem 'jquery-rails'
 gem 'jquery-rails-google-cdn'
 gem 'jquery-ui-rails'
 gem 'jquery-ui-rails-google-cdn'
+# gem 'jquery-ui-rails-google-cdn', path: '../'  
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
