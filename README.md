@@ -63,7 +63,29 @@ config.jquery_version = "2.0.2"
 <%= javascript_include_tag "application" %>
 ```
 
-It will generate the following across all modes production, testing, and development:
+- Please verify you do not have a dupplication `application` js include as this can cause issue with libraries down the road like ember. Here is an example layout of a rails 4 application:
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Demoapp</title>
+  <%= jquery_include_tag Rails.application.config.jquery_version %>
+  <%= jquery_ui_include_tag Rails.application.config.jquery_ui_version %>
+  <%= javascript_include_tag "application" %>
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<%= yield %>
+
+</body>
+</html>
+```
+
+The gem will generate the following across all modes production, testing, and development:
 
 ```html
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
