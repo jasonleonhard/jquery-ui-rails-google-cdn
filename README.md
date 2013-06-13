@@ -63,7 +63,7 @@ config.jquery_version = "2.0.2"
 <%= javascript_include_tag "application" %>
 ```
 
-- Please verify you do not have a dupplication `application` js include as this can cause issue with libraries down the road like ember. Here is an example layout of a rails 4 application:
+- Please verify you do not have a duplicate `application` js include as this can cause issues with libraries down the road like ember. Here is an example layout of a rails 4 application:
 
 ```html
 <!DOCTYPE html>
