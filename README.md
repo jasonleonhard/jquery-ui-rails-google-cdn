@@ -74,7 +74,7 @@ config.jquery_version = "2.0.2"
   <%= jquery_ui_include_tag Rails.application.config.jquery_ui_version %>
   <%= javascript_include_tag "application" %>
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
-  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
